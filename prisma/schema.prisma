@@ -14,7 +14,7 @@ model User {
   password    String      
   departamento String
   curso       String
-  photo       Bytes
+  photo       Bytes 
   avaliacao   Avaliacao[] //cada user pode fazer muitas avaliaçoes - um para muitos
   comentarios Comentario[] //cada user pode fazer muitos comentarios - um para muitos
 }
@@ -26,7 +26,7 @@ model Avaliacao {
   authorId     Int
   disciplinaId Int
   professorId  Int
-  comentarios  Comentario[]
+  comentarios  Comentario[] //um para muitos
   author       User          @relation(fields: [authorId], references: [id]) //uma avaliacao so pode ter um autor, referencia a chave estrangeira authorId
   disciplina   Disciplina    @relation(fields: [disciplinaId], references: [id]) //cada avaliacao pertence a uma unica disciplina 
   professor    Professor     @relation(fields: [professorId], references: [id]) //cada avaliacao e sobre um unico professor

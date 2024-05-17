@@ -3,8 +3,6 @@ import { main } from './main';
 
 export const prisma = new PrismaClient();
 
-
-
 //criando um novo usuario
 async function createUser(){
     try{
