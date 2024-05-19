@@ -9,50 +9,68 @@ datasource db {
 
 model User {
   id          Int           @id @default(autoincrement())
-  name        String        @unique
+  name        String
+  username    String        @unique
   email       String        @unique
   password    String      
-  departamento String
-  curso       String
+  departament String
+  course       String
   photo       Bytes
-  avaliacao   Avaliacao[] //cada user pode fazer muitas avaliaçoes - um para muitos
-  comentarios Comentario[] //cada user pode fazer muitos comentarios - um para muitos
+  assessment   Assessment[] //cada user pode fazer muitas avaliaçoes - um para muitos
+  comments Comments[] //cada user pode fazer muitos comentarios - um para muitos
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 }
 
-model Avaliacao {
+// Melhorias
+// Manter convenções. Se pertence a user, define user. Quando o banco crescer, irá ajudar
+// Definir tudo em ingles. O plural do português é complexo, convenção não é convençãos, e sim convenções, assim, fica difícil de padronizar
+// Adicionar created_at e updated_at em todas as tabelas. Created_at sempre é adicionado automaticamente quando um registro é criado
+// Checar se o @updatedAt já é responsável por atualizar a coluna updated_at sempre q algo é atualizado
+// 
+
+model Assessment {
+  id           Int           @id @default(autoincrement())
+  content      String
+  published    Boolean       @default(false)  
+  subjectsId Int
+  teacherId  Int
+  comments  Comments[]
+  userId   Int              // Define convenção na relação. Se pertence à um user, então é userId
+  user          User          @relation(fields: [userId], references: [id]) //uma avaliacao so pode ter um autor, referencia a chave estrangeira authorId
+  subjects   Subjects    @relation(fields: [subjectsId], references: [id]) //cada avaliacao pertence a uma unica disciplina 
+  teacher    Teacher     @relation(fields: [teacherId], references: [id]) //cada avaliacao e sobre um unico professor
+  created_at    DateTime            @default(now())
+  updated_at    DateTime            @updatedAt
+}
+
+model Comments {
   id           Int           @id @default(autoincrement())
   content      String
   published    Boolean       @default(false)
   authorId     Int
-  disciplinaId Int
-  professorId  Int
-  comentarios  Comentario[]
-  author       User          @relation(fields: [authorId], references: [id]) //uma avaliacao so pode ter um autor, referencia a chave estrangeira authorId
-  disciplina   Disciplina    @relation(fields: [disciplinaId], references: [id]) //cada avaliacao pertence a uma unica disciplina 
-  professor    Professor     @relation(fields: [professorId], references: [id]) //cada avaliacao e sobre um unico professor
-}
-
-model Comentario {
-  id           Int           @id @default(autoincrement())
-  content      String
-  published    Boolean       @default(false)
-  authorId     Int
-  avaliacaoId  Int
+  assessmentId  Int
   author       User          @relation(fields: [authorId], references: [id]) //cada comentario pertence a um unico usuario
-  avaliacao    Avaliacao     @relation(fields: [avaliacaoId], references: [id]) //cada comentario pertence a uma unica avaliacao
+  assessment    Assessment     @relation(fields: [assessmentId], references: [id]) //cada comentario pertence a uma unica avaliacao
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
 }
 
-model Disciplina {
+model Subjects {
   id          Int           @id @default(autoincrement())
   name        String        @unique
-  avaliacoes  Avaliacao[] //uma disciplina pode ter muitas avaliacoes
-  professores Professor[] //uma disciplina pode ter muitos professores
+  assessment  Assessment[] //uma disciplina pode ter muitas avaliacoes
+  teacher Teacher[] //uma disciplina pode ter muitos professores
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
 }
 
-model Professor {
+model Teacher {
   id           Int           @id @default(autoincrement())
   name         String        @unique
-  departamento String
-  disciplinas  Disciplina[] //cada professor pode possuir varias disciplinas
-  avaliacoes   Avaliacao[] //cada professor pode ter muitas avaliacoes
+  departament String
+  subjects  Subjects[] //cada professor pode possuir varias disciplinas
+  assessment   Assessment[] //cada professor pode ter muitas avaliacoes
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @updatedAt
 }
