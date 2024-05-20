@@ -9,11 +9,12 @@ async function createUser(){
         const newUser = await prisma.user.create({
             data:{
                 name: 'Adrielly',
+                username: 'AdriellyLima',
                 email: 'limaadrielly@example.com',
                 password: '1234567',
-                departamento: 'CIC',
-                curso: 'Ciência da Computação',
-                photo: Buffer.from("https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg")
+                departament: 'CIC',
+                course: 'Ciência da Computação',
+                photo: Buffer.from("https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg"),
             }
         });
         console.log("Novo usuário criado:", newUser);
@@ -23,71 +24,71 @@ async function createUser(){
 }
 createUser();
 
-async function createAvaliacao(){
+async function createAssessment(){
     try{
-        const newAvaliacao = await prisma.avaliacao.create({
+        const newAssessment = await prisma.assessment.create({
             data:{
                     content: "avaliação um",
                     published: true,
-                    authorId: 1,
-                    disciplinaId: 1,
-                    professorId: 1
+                    userId: 1,
+                    subjectId: 1,
+                    teacherId: 1
             }
         });
-        console.log('Nova avaliação criada.', newAvaliacao);
+        console.log('Nova avaliação criada.', newAssessment);
     }catch(error){
         console.error('Erro ao criar avaliação.', error);
     }
 }
-createAvaliacao();
+createAssessment();
 
-async function createComentario() {
+async function createComment() {
     try{
-        const newComentario = await prisma.comentario.create({
+        const newComment = await prisma.comment.create({
             data:{
                 content: "comentario um",
                 published: true,
-                authorId: 1,
-                avaliacaoId: 1
+                userId: 1,
+                assessmentId: 1,
             }
         });
-        console.log('Novo comentário adicionado.', newComentario);
+        console.log('Novo comentário adicionado.', newComment);
     }catch(error){
         console.log('Erro ao adicionar comentário.', error);
     }
 }
-createComentario();
+createComment();
 
-async function createDisciplina() {
+async function createSubjects() {
     try{
-        const newDisciplina = await prisma.disciplina.create({
+        const newSubjects = await prisma.subject.create({
             data:{
                 name: "APC"
             }
         }); 
-        console.log('Disciplina adicionada.', newDisciplina);
+        console.log('Disciplina adicionada.', newSubjects);
     }catch(error){
         console.log('Erro ao adicionar disciplina.', error);
     }
 }
-createDisciplina();
+createSubjects();
 
-async function createProfessor(){
+async function createTeacher(){
     try{
-        const newProfessor = await prisma.professor.create({
+        const newTeacher = await prisma.teacher.create({
             data:{
                 name: 'Carla Castanho',
-                departamento: 'CIC'
+                departament: 'CIC'
             }
         });
-        console.log('Professor adicionado.', newProfessor);;
+        console.log('Professor adicionado.', newTeacher);;
     }catch(error){
         console.log('Erro ao adicionar professor.', error);
     }finally{ //mover o finally para o final da ultima classe
         await prisma.$disconnect();
     }
 }
-createProfessor();
+createTeacher();
 
 main()
   .catch((e) => {
