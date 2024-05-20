@@ -7,52 +7,84 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Melhorias
+// Manter convenções. Se pertence a user, define user. Quando o banco crescer, irá ajudar
+// Definir tudo em ingles. O plural do português é complexo, convenção não é convençãos, e sim. convenções, assim, fica difícil de padronizar
+// Adicionar created_at e updated_at em todas as tabelas. Created_at sempre é adicionado automaticamente quando um registro é criado
+// Checar se o @updatedAt já é responsável por atualizar a coluna updated_at sempre q algo é atualizado. Sim, é
+// 
+
 model User {
   id          Int           @id @default(autoincrement())
-  name        String        @unique
+  name        String
+  username    String        @unique
   email       String        @unique
   password    String      
-  departamento String
-  curso       String
-  photo       Bytes 
-  avaliacao   Avaliacao[] //cada user pode fazer muitas avaliaçoes - um para muitos
-  comentarios Comentario[] //cada user pode fazer muitos comentarios - um para muitos
+  departament String
+  course      String
+  photo       Bytes
+  assessments Assessment[]  // 1 to n - Um usuário pode possuir muitas avaliações
+  comments    Comment[]     // 1 to n - Um usuário pode possuir muitos comentários
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
 }
 
-model Avaliacao {
+model Assessment {
   id           Int           @id @default(autoincrement())
   content      String
   published    Boolean       @default(false)
-  authorId     Int
-  disciplinaId Int
-  professorId  Int
-  comentarios  Comentario[] //um para muitos
-  author       User          @relation(fields: [authorId], references: [id]) //uma avaliacao so pode ter um autor, referencia a chave estrangeira authorId
-  disciplina   Disciplina    @relation(fields: [disciplinaId], references: [id]) //cada avaliacao pertence a uma unica disciplina 
-  professor    Professor     @relation(fields: [professorId], references: [id]) //cada avaliacao e sobre um unico professor
+  teacher      Teacher       @relation(fields: [teacherId], references: [id]) 
+  teacherId    Int
+  user         User          @relation(fields: [userId], references: [id])   // Cada avaliacao pertence a um único usuario
+  userId       Int
+  comments     Comment[]     // 1 to n - Uma avaliação pode possuir muitos comentários
+  subject      Subject       @relation(fields: [subjectId], references: [id]) // Cada avaliacao pertence a uma única disciplina 
+  subjectId    Int
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
 }
 
-model Comentario {
+model Comment {
   id           Int           @id @default(autoincrement())
   content      String
   published    Boolean       @default(false)
-  authorId     Int
-  avaliacaoId  Int
-  author       User          @relation(fields: [authorId], references: [id]) //cada comentario pertence a um unico usuario
-  avaliacao    Avaliacao     @relation(fields: [avaliacaoId], references: [id]) //cada comentario pertence a uma unica avaliacao
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id]) // Um comentario pertence a um unico usuario
+  assessmentId Int
+  assessment   Assessment    @relation(fields: [assessmentId], references: [id]) // Um comentario pertence a uma unica avaliação
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
 }
 
-model Disciplina {
-  id          Int           @id @default(autoincrement())
-  name        String        @unique
-  avaliacoes  Avaliacao[] //uma disciplina pode ter muitas avaliacoes
-  professores Professor[] //uma disciplina pode ter muitos professores
+model Subject {
+  id          Int                    @id @default(autoincrement())
+  name        String
+  assessments Assessment[]          // 1 to n - Uma disciplina pode possuir muitas avaliações
+  teacherSubjects TeacherSubject[]  // n to n - Uma disciplina pode possuir muitos professores
+  created_at  DateTime              @default(now())
+  updated_at  DateTime              @updatedAt
 }
 
-model Professor {
-  id           Int           @id @default(autoincrement())
-  name         String        @unique
-  departamento String
-  disciplinas  Disciplina[] //cada professor pode possuir varias disciplinas
-  avaliacoes   Avaliacao[] //cada professor pode ter muitas avaliacoes
+// Definir TeacherSubject para definir a relação n to n onde um professor possui muitas disciplinas
+// e uma disciplina possui muitos professores
+
+model Teacher {
+  id           Int                  @id @default(autoincrement())
+  name         String               @unique
+  departament  String
+  assessments  Assessment[]         // 1 to n - Um professor pode possuir muitas avaliações
+  teacherSubjects TeacherSubject[]  // n to n - Um professor pode possuir muitas disciplinas
+  created_at   DateTime             @default(now())
+  updated_at   DateTime             @updatedAt
+}
+
+model TeacherSubject {
+  teacherId    Int
+  subjectId    Int
+  teacher      Teacher   @relation(fields: [teacherId], references: [id])
+  subject      Subject   @relation(fields: [subjectId], references: [id])
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  @@id([teacherId, subjectId])
 }
