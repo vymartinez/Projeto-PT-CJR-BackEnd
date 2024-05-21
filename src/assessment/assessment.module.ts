@@ -6,6 +6,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Global()
 @Module({
   controllers: [AssessmentController],
-  providers: [assessmentService, PrismaService]
+  providers: [assessmentService, PrismaService],
 })
 export class AssessmentModule {}

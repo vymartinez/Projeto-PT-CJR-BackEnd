@@ -1,38 +1,46 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { assessmentService } from './assessment.service';
 import { AssessmentDTO } from './dto/assessment.dto';
 import { UpdateAssessmentDTO } from './dto/update-assessment.dto';
 
-
 //o controlador lida com as requisições http
 @Controller('assessment')
-export class AssessmentController{
-  constructor(private readonly assessmentService: assessmentService){}
+export class AssessmentController {
+  constructor(private readonly assessmentService: assessmentService) {}
 
   @Post()
-  async create(@Body() assessmentDTO: AssessmentDTO){
+  async create(@Body() assessmentDTO: AssessmentDTO) {
     return this.assessmentService.create(assessmentDTO);
   }
 
   @Get()
-  async findAll(){
+  async findAll() {
     return this.assessmentService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string){
+  async findOne(@Param('id') id: string) {
     return this.assessmentService.findOne(+id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateAssessmentDTO: UpdateAssessmentDTO){
+  async update(
+    @Param('id') id: string,
+    @Body() updateAssessmentDTO: UpdateAssessmentDTO,
+  ) {
     return this.assessmentService.update(+id, updateAssessmentDTO);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string){
+  async remove(@Param('id') id: string) {
     return this.assessmentService.remove(+id);
   }
-  
-
 }
