@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { assessmentService } from './assessment.service';
 import { AssessmentDTO } from './dto/assessment.dto';
@@ -17,7 +18,7 @@ export class AssessmentController {
   constructor(private readonly assessmentService: assessmentService) {}
 
   @Post()
-  async create(@Body() assessmentDTO: AssessmentDTO) {
+  async create(@Body(ValidationPipe) assessmentDTO: AssessmentDTO) {
     return this.assessmentService.create(assessmentDTO);
   }
 
@@ -34,7 +35,7 @@ export class AssessmentController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateAssessmentDTO: UpdateAssessmentDTO,
+    @Body(ValidationPipe) updateAssessmentDTO: UpdateAssessmentDTO,
   ) {
     return this.assessmentService.update(+id, updateAssessmentDTO);
   }

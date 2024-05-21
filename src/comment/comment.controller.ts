@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDTO } from './dto/create-comment.dto';
@@ -16,7 +17,7 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
-  async create(@Body() comment: CreateCommentDTO) {
+  async create(@Body(ValidationPipe) comment: CreateCommentDTO) {
     return this.commentService.create(comment);
   }
 
@@ -33,7 +34,7 @@ export class CommentController {
   @Patch(':id')
   async update(
     @Param('id') id: number,
-    @Body() updateCommentDTO: UpdateCommentDTO,
+    @Body(ValidationPipe) updateCommentDTO: UpdateCommentDTO,
   ) {
     return this.commentService.update(Number(id), updateCommentDTO);
   }
