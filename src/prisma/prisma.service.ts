@@ -1,7 +1,16 @@
-/*prisma client = é oq de fato nos permite trabalhar com o ROM*/
-import { PrismaClient } from "@prisma/client";
-import { Injectable } from "@nestjs/common"; /*trabalha com injeção de dependencias (um serviço é injetado dentro de outro) */
+// src/prisma/prisma.service.ts
+import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-/*o prismaService vai fazer o papel do prismaClient no nosso programa */
-export class PrismaService extends PrismaClient {};
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+  async onModuleInit() {
+    await this.$connect(); //conecta o bd
+  }
+
+  async onModuleDestroy() {
+    await this.$disconnect(); //desconecta o bd
+  }
+}
+
+//essa classe é usada para conectar o banco de dados

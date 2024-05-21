@@ -6,3 +6,5 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+
+//ate agora apenas iniciamos nosso ouvinte HTTP, que permite que o aplicativo aguarde solicitações HTTP de entrada.
