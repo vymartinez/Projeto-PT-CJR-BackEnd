@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCommentDTO } from './dto/create-comment.dto';
+import { UpdateCommentDTO } from './dto/update-comment.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -36,7 +37,7 @@ export class CommentService {
     });
   }
 
-  async update(id: number, data: CreateCommentDTO) {
+  async update(id: number, data: UpdateCommentDTO) {
     const { userId, assessmentId, ...rest } = data;
     return this.prisma.comment.update({
       where: { id },
