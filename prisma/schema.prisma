@@ -62,7 +62,7 @@ model Subject {
   assessments Assessment[]          // 1 to n - Uma disciplina pode possuir muitas avaliações
   teacherSubjects TeacherSubject[]  // n to n - Uma disciplina pode possuir muitos professores
   created_at  DateTime              @default(now())
-  updated_at  DateTime              @updatedAt
+  updated_at  DateTime              @updatedAt 
 }
 
 // Definir TeacherSubject para definir a relação n to n onde um professor possui muitas disciplinas

@@ -1,8 +1,8 @@
-export class SubjectDTO{
+export class AvaliacaoDTO{
     content: string;
     published: boolean;
     authorId: number;
-    assessmentsId: number;
+    subjectId: number;
     teacherId: number;
 }
 
