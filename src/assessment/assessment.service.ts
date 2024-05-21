@@ -45,7 +45,7 @@ export class assessmentService {
         });
     }
 
-    async update(id: number, data: AssessmentDTO){
+    async update(id: number, data: UpdateAssessmentDTO){
         const {userId, subjectId, teacherId, ...rest } = data;
         return this.prisma.assessment.update({
             where: { id },

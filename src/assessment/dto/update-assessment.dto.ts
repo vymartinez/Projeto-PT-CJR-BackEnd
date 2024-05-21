@@ -1,7 +1,7 @@
-export class UpdateAvaliacaoDTO {
+export class UpdateAssessmentDTO {
     content?: string;
     published?: boolean;
-    authorId?: number;
+    userId?: number;
     subjectId?: number;
     teacherId?: number;
   }
