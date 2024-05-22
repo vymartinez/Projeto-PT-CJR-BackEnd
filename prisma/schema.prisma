@@ -60,7 +60,7 @@ model Subject {
   id          Int                    @id @default(autoincrement())
   name        String
   assessments Assessment[]          // 1 to n - Uma disciplina pode possuir muitas avaliações
-  teachers     Teacher[]  // n to n - Uma disciplina pode possuir muitos professores
+  teachersSubjects TeacherSubject[]               // n to n - Uma disciplina pode possuir muitos professores
   created_at  DateTime              @default(now())
   updated_at  DateTime              @updatedAt 
 }
@@ -73,7 +73,18 @@ model Teacher {
   name         String               @unique
   departament  String
   assessments  Assessment[]         // 1 to n - Um professor pode possuir muitas avaliações
-  subjects     Subject[]  // n to n - Um professor pode possuir muitas disciplinas
+  teacherSubjects TeacherSubject[]            // n to n - Um professor pode possuir muitas disciplinas
   created_at   DateTime             @default(now())
   updated_at   DateTime             @updatedAt
+}
+
+model TeacherSubject {
+  teacherId    Int
+  subjectId    Int
+  teacher      Teacher   @relation(fields: [teacherId], references: [id])
+  subject      Subject   @relation(fields: [subjectId], references: [id])
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  @@id([teacherId, subjectId])
 }
