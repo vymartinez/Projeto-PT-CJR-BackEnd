@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,12 +28,10 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
-
   @Get()
   findAll(): User[] {
     return this.userService.findAll();
   }
-  
 
   @Get(':id')
   findUser(@Param('id') id: number): User {
@@ -32,10 +39,13 @@ export class UserController {
   }
 
   @Patch(':id')
-  updateUser(@Param('id') id: number, @Body(ValidationPipe) updateData: UpdateUserDto): User {
+  updateUser(
+    @Param('id') id: number,
+    @Body(ValidationPipe) updateData: UpdateUserDto,
+  ): User {
     return this.userService.updateUser(Number(id), updateData);
   }
-  
+
   @Delete(':id')
   deleteUser(@Param('id') id: number): void {
     return this.userService.deleteUser(Number(id));

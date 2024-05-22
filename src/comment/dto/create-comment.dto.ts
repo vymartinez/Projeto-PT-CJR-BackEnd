@@ -1,18 +1,15 @@
 import { IsNumber, IsString, IsBoolean } from 'class-validator';
 
-export class AssessmentDTO {
+export class CreateCommentDTO {
   @IsString()
   content: string;
-
-  @IsBoolean()
-  published: boolean;
 
   @IsNumber()
   userId: number;
 
   @IsNumber()
-  subjectId: number;
+  assessmentId: number;
 
-  @IsNumber()
-  teacherId: number;
+  @IsBoolean()
+  published: boolean;
 }

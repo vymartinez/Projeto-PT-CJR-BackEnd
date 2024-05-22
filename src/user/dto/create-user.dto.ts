@@ -1,24 +1,44 @@
-import { IsEmail, IsNumber, IsString, MinLength, IsNotEmpty } from "class-validator";
+import {
+  IsEmail,
+  IsNumber,
+  IsString,
+  MinLength,
+  IsNotEmpty,
+  IsOptional,
+  IsBase64,
+} from 'class-validator';
 
 export class CreateUserDto {
-    @IsString()
-    @IsNotEmpty({ message: 'Username is required' })
-    username: string;
+  @IsString()
+  @IsNotEmpty({ message: 'Username is required' })
+  username: string;
 
-    @IsEmail({}, { message: 'Invalid email address' })
-    @IsNotEmpty({ message: 'Email is required' })
-    email: string;
+  @IsEmail({}, { message: 'Invalid email address' })
+  @IsNotEmpty({ message: 'Email is required' })
+  email: string;
 
-    @IsString()
-    // É obrigatório ter nome? Interessante q n seja, mas é importante que tenha uma validação. Pode ser necessário pedir matrícula obrigatório
-    @IsNotEmpty({ message: 'Name is required' })
-    name: string;
+  @IsString()
+  @IsNotEmpty({ message: 'Name is required' })
+  name: string;
 
-    @IsNumber() 
-    @IsNotEmpty({ message: 'Registration must be a number' })
-    registration: number;
+  @IsNumber()
+  @IsNotEmpty({ message: 'Registration must be a number' })
+  registration: number;
 
-    @IsString()
-    @MinLength(6, { message: 'Password must be at least 6 characters long' })
-    password: string;
+  @IsString({ message: 'Departament must be a string' })
+  @IsNotEmpty({ message: 'Departament is required' })
+  departament: string
+
+  @IsString({ message: 'Course must be a string' })
+  @IsNotEmpty({ message: 'Course is required' })
+  course: string
+
+  @IsString()
+  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  password: string;
+
+  @IsBase64()
+  @IsOptional({ message: 'Photo is optional' })
+  photo: Buffer
+
 }

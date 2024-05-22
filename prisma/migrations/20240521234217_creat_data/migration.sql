@@ -61,6 +61,8 @@ CREATE TABLE "Teacher" (
 CREATE TABLE "TeacherSubject" (
     "teacherId" INTEGER NOT NULL,
     "subjectId" INTEGER NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL,
 
     PRIMARY KEY ("teacherId", "subjectId"),
     CONSTRAINT "TeacherSubject_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "Teacher" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,

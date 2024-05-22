@@ -1,13 +1,9 @@
 import { IsNumber, IsString, IsBoolean, IsOptional } from 'class-validator';
 
-export class UpdateAssessmentDTO {
+export class UpdateCommentDTO {
   @IsString()
   @IsOptional()
   content?: string;
-
-  @IsBoolean()
-  @IsOptional()
-  published?: boolean;
 
   @IsNumber()
   @IsOptional()
@@ -15,9 +11,9 @@ export class UpdateAssessmentDTO {
 
   @IsNumber()
   @IsOptional()
-  subjectId?: number;
+  assessmentId?: number;
 
-  @IsNumber()
+  @IsBoolean()
   @IsOptional()
-  teacherId?: number;
+  published?: boolean;
 }
