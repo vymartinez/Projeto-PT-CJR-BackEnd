@@ -27,11 +27,11 @@ export class CreateUserDto {
 
   @IsString({ message: 'Departament must be a string' })
   @IsNotEmpty({ message: 'Departament is required' })
-  departament: string
+  departament: string;
 
   @IsString({ message: 'Course must be a string' })
   @IsNotEmpty({ message: 'Course is required' })
-  course: string
+  course: string;
 
   @IsString()
   @MinLength(6, { message: 'Password must be at least 6 characters long' })
@@ -39,6 +39,5 @@ export class CreateUserDto {
 
   @IsBase64()
   @IsOptional({ message: 'Photo is optional' })
-  photo: Buffer
-
+  photo: Buffer;
 }
