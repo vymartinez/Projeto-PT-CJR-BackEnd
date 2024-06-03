@@ -2,10 +2,9 @@
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "departament" TEXT NOT NULL,
+    "department" TEXT NOT NULL,
     "course" TEXT NOT NULL,
     "photo" BLOB NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -16,7 +15,6 @@ CREATE TABLE "User" (
 CREATE TABLE "Assessment" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "content" TEXT NOT NULL,
-    "published" BOOLEAN NOT NULL DEFAULT false,
     "teacherId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
     "subjectId" INTEGER NOT NULL,
@@ -31,7 +29,6 @@ CREATE TABLE "Assessment" (
 CREATE TABLE "Comment" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "content" TEXT NOT NULL,
-    "published" BOOLEAN NOT NULL DEFAULT false,
     "userId" INTEGER NOT NULL,
     "assessmentId" INTEGER NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -52,7 +49,8 @@ CREATE TABLE "Subject" (
 CREATE TABLE "Teacher" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "departament" TEXT NOT NULL,
+    "department" TEXT NOT NULL,
+    "photo" BLOB NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );

@@ -1,6 +1,5 @@
 import {
   IsEmail,
-  IsNumber,
   IsString,
   MinLength,
   IsNotEmpty,
@@ -9,10 +8,6 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString()
-  @IsNotEmpty({ message: 'Username is required' })
-  username: string;
-
   @IsEmail({}, { message: 'Invalid email address' })
   @IsNotEmpty({ message: 'Email is required' })
   email: string;
@@ -21,13 +16,9 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Name is required' })
   name: string;
 
-  @IsNumber()
-  @IsNotEmpty({ message: 'Registration must be a number' })
-  registration: number;
-
   @IsString({ message: 'Departament must be a string' })
   @IsNotEmpty({ message: 'Departament is required' })
-  departament: string;
+  department: string;
 
   @IsString({ message: 'Course must be a string' })
   @IsNotEmpty({ message: 'Course is required' })

@@ -16,11 +16,10 @@ datasource db {
 
 model User {
   id          Int           @id @default(autoincrement())
-  name        String
-  username    String        @unique
+  name        String        @unique
   email       String        @unique
   password    String      
-  departament String
+  department String
   course      String
   photo       Bytes
   assessments Assessment[]  // 1 to n - Um usuário pode possuir muitas avaliações
@@ -32,7 +31,6 @@ model User {
 model Assessment {
   id           Int           @id @default(autoincrement())
   content      String
-  published    Boolean       @default(false)
   teacher      Teacher       @relation(fields: [teacherId], references: [id]) 
   teacherId    Int
   user         User          @relation(fields: [userId], references: [id])   // Cada avaliacao pertence a um único usuario
@@ -47,7 +45,6 @@ model Assessment {
 model Comment {
   id           Int           @id @default(autoincrement())
   content      String
-  published    Boolean       @default(false)
   userId       Int
   user         User          @relation(fields: [userId], references: [id]) // Um comentario pertence a um unico usuario
   assessmentId Int
@@ -71,7 +68,8 @@ model Subject {
 model Teacher {
   id           Int                  @id @default(autoincrement())
   name         String               @unique
-  departament  String
+  department   String
+  photo        Bytes
   assessments  Assessment[]         // 1 to n - Um professor pode possuir muitas avaliações
   teacherSubjects TeacherSubject[]            // n to n - Um professor pode possuir muitas disciplinas
   created_at   DateTime             @default(now())

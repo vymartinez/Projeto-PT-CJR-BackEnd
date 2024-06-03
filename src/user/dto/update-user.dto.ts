@@ -1,6 +1,5 @@
 import {
   IsEmail,
-  IsNumber,
   IsString,
   MinLength,
   IsOptional,
@@ -8,10 +7,6 @@ import {
 } from 'class-validator';
 
 export class UpdateUserDto {
-  @IsString()
-  @IsOptional()
-  username?: string;
-
   @IsEmail({}, { message: 'Invalid email address' })
   @IsOptional()
   email?: string;
@@ -20,13 +15,9 @@ export class UpdateUserDto {
   @IsOptional()
   name?: string;
 
-  @IsNumber({}, { message: 'Registration must be a number' })
-  @IsOptional()
-  registration?: number;
-
   @IsString({ message: 'Departament must be a string' })
   @IsOptional()
-  departament: string;
+  department: string;
 
   @IsString({ message: 'Course must be a string' })
   @IsOptional()

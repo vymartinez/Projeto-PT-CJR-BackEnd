@@ -10,7 +10,8 @@ export class teacherService {
       select: {
         id: true,
         name: true,
-        departament: true,
+        department: true,
+        photo: true,
         teacherSubjects: true,
       },
     });
@@ -21,7 +22,8 @@ export class teacherService {
       select: {
         id: true,
         name: true,
-        departament: true,
+        department: true,
+        photo: true,
         teacherSubjects: true,
       },
     });

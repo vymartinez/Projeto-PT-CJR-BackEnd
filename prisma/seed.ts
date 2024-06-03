@@ -3,12 +3,13 @@ import { PrismaClient } from '@prisma/client';
 export const prisma = new PrismaClient();
 
 //criando um novo usuario
-async function createTeacher(name, departament) {
+async function createTeacher(name, department, photo) {
   try {
     const newTeacher = await prisma.teacher.create({
       data: {
         name,
-        departament,
+        department,
+        photo: Buffer.from(photo),
       },
     });
     console.log('Professor adicionado.', newTeacher);
@@ -17,15 +18,14 @@ async function createTeacher(name, departament) {
   }
 }
 
-async function createUser(name, username, email, password, departament, course, photo) {
+async function createUser(name, email, password, department, course, photo) {
   try {
     const newUser = await prisma.user.create({
       data: {
         name,
-        username,
         email,
         password,
-        departament,
+        department,
         course,
         photo: Buffer.from(photo),
       },
@@ -36,12 +36,11 @@ async function createUser(name, username, email, password, departament, course, 
   }
 }
 
-async function createAssessment(content, published, userId, subjectId, teacherId) {
+async function createAssessment(content, userId, subjectId, teacherId) {
   try {
     const newAssessment = await prisma.assessment.create({
       data: {
         content,
-        published,
         userId,
         subjectId,
         teacherId,
@@ -53,12 +52,11 @@ async function createAssessment(content, published, userId, subjectId, teacherId
   }
 }
 
-async function createComment(content, published, userId, assessmentId) {
+async function createComment(content, userId, assessmentId) {
   try {
     const newComment = await prisma.comment.create({
       data: {
         content,
-        published,
         userId,
         assessmentId,
       },
@@ -97,11 +95,11 @@ async function createTeacherSubjects(teacherId, subjectId) {
 }
 
 async function main() {
-  await createTeacher('Carla Castanho', 'CIC'); //t1
-  await createUser('Adrielly', 'AdriellyLima', 'limaadrielly@example.com', '1234567', 'CIC', 'Ciência da Computação', 'https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg');
+  await createTeacher('Carla Castanho', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t1
+  await createUser('Adrielly', 'limaadrielly@example.com', '1234567', 'CIC', 'Ciência da Computação', 'https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg');
   await createSubjects('APC'); //1
-  await createAssessment('avaliação um', true, 1, 1, 1);
-  await createComment('comentario um', true, 1, 1);
+  await createAssessment('avaliação um', 1, 1, 1);
+  await createComment('comentario um', 1, 1);
   await createSubjects('Cálculo I'); //2
   await createSubjects('Álgebra Linear'); //3
   await createSubjects('Cálculo II'); //4
@@ -121,21 +119,21 @@ async function main() {
   await createSubjects('Geologia'); //18
   await createSubjects('Teoria da Computação'); //19
   await createSubjects('Física II'); //20
-  await createTeacher('Péricles', 'CIC'); //t2
-  await createTeacher('Irineu', 'CIC'); //t3
-  await createTeacher('Aristóteles', 'CIC'); //t4
-  await createTeacher('Fulano', 'Matemática'); //t5
-  await createTeacher('Ciclano', 'Matemática'); //t6
-  await createTeacher('Flavin do Pneu', 'Rochas'); //t7
-  await createTeacher('Beltrano', 'CIC'); //t8
-  await createTeacher('José', 'Física'); //t9
-  await createTeacher('Anibol', 'Física'); //t10
-  await createTeacher('Natasha Caldeirão', 'CIC'); //t1
-  await createTeacher('Taylor Shift', 'CIC'); //t12
-  await createTeacher('Ana Banana', 'CIC'); //t13
-  await createTeacher('Brad Peach', 'Matemática'); //t14
-  await createTeacher('Marcelo Martelo', 'CIC'); //t15
-  await createTeacher('Vin Gasolina', 'Estatística'); //t16
+  await createTeacher('Péricles', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t2
+  await createTeacher('Irineu', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t3
+  await createTeacher('Aristóteles', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t4
+  await createTeacher('Fulano', 'Matemática', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t5
+  await createTeacher('Ciclano', 'Matemática', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t6
+  await createTeacher('Flavin do Pneu', 'Rochas', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t7
+  await createTeacher('Beltrano', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t8
+  await createTeacher('José', 'Física', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t9
+  await createTeacher('Anibol', 'Física', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t10
+  await createTeacher('Natasha Caldeirão', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t1
+  await createTeacher('Taylor Shift', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t12
+  await createTeacher('Ana Banana', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t13
+  await createTeacher('Brad Peach', 'Matemática', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t14
+  await createTeacher('Marcelo Martelo', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t15
+  await createTeacher('Vin Gasolina', 'Estatística', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t16
   await createTeacherSubjects(1, 1);
   await createTeacherSubjects(2, 2);
   await createTeacherSubjects(4, 3);
