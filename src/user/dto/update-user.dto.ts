@@ -17,11 +17,11 @@ export class UpdateUserDto {
 
   @IsString({ message: 'Departament must be a string' })
   @IsOptional()
-  department: string;
+  department?: string;
 
   @IsString({ message: 'Course must be a string' })
   @IsOptional()
-  course: string;
+  course?: string;
 
   @IsString()
   @MinLength(6, { message: 'Password must be at least 6 characters long' })
@@ -30,5 +30,5 @@ export class UpdateUserDto {
 
   @IsBase64()
   @IsOptional()
-  photo: Buffer;
+  photo?: Buffer;
 }
