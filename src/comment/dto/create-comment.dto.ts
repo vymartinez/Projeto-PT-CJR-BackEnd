@@ -1,4 +1,4 @@
-import { IsNumber, IsString, IsBoolean } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateCommentDTO {
   @IsString()
@@ -9,7 +9,4 @@ export class CreateCommentDTO {
 
   @IsNumber()
   assessmentId: number;
-
-  @IsBoolean()
-  published: boolean;
 }
