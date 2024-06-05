@@ -2,13 +2,13 @@ import { IsOptional, IsString } from "class-validator";
 
 export class UserEntity {
     @IsString()
-    id: string;
+    id: number;
 
     @IsString()
     email: string;
 
     @IsString()
-    senha: string;
+    password: string;
 
     @IsString()
     @IsOptional()    
