@@ -6,7 +6,7 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "department" TEXT NOT NULL,
     "course" TEXT NOT NULL,
-    "photo" BLOB NOT NULL,
+    "photo" BLOB,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );
@@ -50,7 +50,7 @@ CREATE TABLE "Teacher" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "department" TEXT NOT NULL,
-    "photo" BLOB NOT NULL,
+    "photo" BLOB,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );
