@@ -97,9 +97,11 @@ async function createTeacherSubjects(teacherId, subjectId) {
 async function main() {
   await createTeacher('Carla Castanho', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t1
   await createUser('Adrielly', 'limaadrielly@example.com', '1234567', 'CIC', 'Ciência da Computação', 'https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg');
+  await createUser('Vitebas', 'vitebas@example.com', '1234567', 'CIC', 'Ciência da Computação', 'https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg');
   await createSubjects('APC'); //1
   await createAssessment('avaliação um', 1, 1, 1);
   await createComment('comentario um', 1, 1);
+  await createComment('comentario dois', 2, 1);
   await createSubjects('Cálculo I'); //2
   await createSubjects('Álgebra Linear'); //3
   await createSubjects('Cálculo II'); //4

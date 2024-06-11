@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { compareSync } from 'bcrypt'
-import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
