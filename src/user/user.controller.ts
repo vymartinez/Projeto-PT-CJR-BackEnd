@@ -6,11 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  UnauthorizedException,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CurrentUser } from 'src/auth/decorator/CurrentUser.decorator';
+import { UserPayload } from 'src/auth/types/UserPayload';
 
 @Controller('user')
 export class UserController {
@@ -35,12 +38,22 @@ export class UserController {
   updateUser(
     @Param('id') id: number,
     @Body(ValidationPipe) updateData: UpdateUserDto,
+    @CurrentUser() currentUser: UserPayload,
   ) {
+    if (id !== currentUser.sub){
+      throw new UnauthorizedException('Você só pode atualizar seu próprio perfil');
+    }
     return this.userService.updateUser(Number(id), updateData);
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number) {
+  deleteUser(
+    @Param('id') id: number,
+    @CurrentUser() currentUser: UserPayload,
+  ) {
+    if (id !== currentUser.sub){
+      throw new UnauthorizedException('Você só pode excluir seu próprio perfil');
+    }
     return this.userService.deleteUser(Number(id));
   }
 }
