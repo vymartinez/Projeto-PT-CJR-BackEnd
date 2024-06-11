@@ -15,7 +15,7 @@ model User {
   password    String      
   department String
   course      String
-  photo       Bytes
+  photo       Bytes?
   assessments Assessment[]  // 1 to n - Um usuário pode possuir muitas avaliações
   comments    Comment[]     // 1 to n - Um usuário pode possuir muitos comentários
   created_at  DateTime      @default(now())
@@ -63,7 +63,7 @@ model Teacher {
   id           Int                  @id @default(autoincrement())
   name         String               @unique
   department   String
-  photo        Bytes
+  photo        Bytes?
   assessments  Assessment[]         // 1 to n - Um professor pode possuir muitas avaliações
   teacherSubjects TeacherSubject[]            // n to n - Um professor pode possuir muitas disciplinas
   created_at   DateTime             @default(now())

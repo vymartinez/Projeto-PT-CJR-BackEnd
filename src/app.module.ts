@@ -23,15 +23,17 @@ import { AuthGuard } from './auth/guards/auth-guard';
     JwtModule,
     ConfigModule.forRoot({
       isGlobal: true,
-    })
+    }),
   ],
 
   controllers: [AppController],
-  providers: [AppService,
-    { //ativando o guardiao globalmente, p se aplicar a todas as rotas
-      provide: APP_GUARD, 
+  providers: [
+    AppService,
+    {
+      //ativando o guardiao globalmente, p se aplicar a todas as rotas
+      provide: APP_GUARD,
       useClass: AuthGuard,
-    }
+    },
   ],
 })
 export class AppModule {}

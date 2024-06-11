@@ -14,21 +14,25 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CurrentUser } from 'src/auth/decorator/CurrentUser.decorator';
 import { UserPayload } from 'src/auth/types/UserPayload';
+import { Public } from 'src/auth/decorator/isPublic.decorator';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Public()
   @Post()
   createUser(@Body(ValidationPipe) userData: CreateUserDto) {
     return this.userService.createUser(userData);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findUser(@Param('id') id: number) {
     return this.userService.findUser(Number(id));
@@ -40,19 +44,20 @@ export class UserController {
     @Body(ValidationPipe) updateData: UpdateUserDto,
     @CurrentUser() currentUser: UserPayload,
   ) {
-    if (id !== currentUser.sub){
-      throw new UnauthorizedException('Você só pode atualizar seu próprio perfil');
+    if (id !== currentUser.sub) {
+      throw new UnauthorizedException(
+        'Você só pode atualizar seu próprio perfil',
+      );
     }
     return this.userService.updateUser(Number(id), updateData);
   }
 
   @Delete(':id')
-  deleteUser(
-    @Param('id') id: number,
-    @CurrentUser() currentUser: UserPayload,
-  ) {
-    if (id !== currentUser.sub){
-      throw new UnauthorizedException('Você só pode excluir seu próprio perfil');
+  deleteUser(@Param('id') id: number, @CurrentUser() currentUser: UserPayload) {
+    if (id !== currentUser.sub) {
+      throw new UnauthorizedException(
+        'Você só pode excluir seu próprio perfil',
+      );
     }
     return this.userService.deleteUser(Number(id));
   }

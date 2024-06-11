@@ -8,7 +8,7 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   findByEmail(email: any) {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
   async onModuleInit() {
     await this.$connect(); //conecta o bd

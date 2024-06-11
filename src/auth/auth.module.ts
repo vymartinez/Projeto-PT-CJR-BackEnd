@@ -4,17 +4,16 @@ import { AuthController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Module({
   imports: [
     UserModule,
-    ConfigModule.forRoot(), 
-    UserModule, 
+    ConfigModule.forRoot(),
+    UserModule,
     JwtModule,
-    PrismaModule, 
+    PrismaModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, PrismaService],
