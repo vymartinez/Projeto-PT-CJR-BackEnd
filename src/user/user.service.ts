@@ -15,15 +15,15 @@ export class UserService {
   async createUser(createUserDto: CreateUserDto) {
     const existingUser = await this.prisma.user.findUnique({ where: { email: createUserDto.email } });
     if (existingUser) {
-      throw new ConflictException('User already exists');
+      throw new ConflictException('Esse email já pertence a um usuário');
     }
 
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10); //criando hash de senha
 
     return await this.prisma.user.create({
       data: {
         ...createUserDto,
-        password: hashedPassword,
+        password: hashedPassword, //trocamos a senha inserida pelo user pelo hash de senha criada
       },
     });
   }
@@ -48,7 +48,7 @@ export class UserService {
   async findUser(id: number) {
     const isValidId = await this.prisma.user.findUnique({ where: { id} });
     if (!isValidId) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário não encontrado');
     }
     return await this.prisma.user.findUnique({
       where: { id },
@@ -67,7 +67,7 @@ export class UserService {
     });
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string) { //procurando o user pelo email
     const User = await this.prisma.user.findUnique({ where: { email } });
     if (!User) {
       return null;
@@ -78,10 +78,10 @@ export class UserService {
   async updateUser(id: number, updateUserDto: UpdateUserDto) {
     const isValidId = await this.prisma.user.findUnique({ where: {id} });
     if (!isValidId) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário não encontrado');
     }
 
-    const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);
+    const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);//repetindo o processo de hashing pois o user pode trocar de senha
 
     return await this.prisma.user.update({
       where: { id },
@@ -107,7 +107,7 @@ export class UserService {
   async deleteUser(id: number) {
     const isValidId = await this.prisma.user.findUnique({ where: {id} });
     if (!isValidId) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário não encontrado');
     }
     return await this.prisma.user.delete({
       where: { id },
