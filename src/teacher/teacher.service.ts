@@ -13,6 +13,7 @@ export class teacherService {
         department: true,
         photo: true,
         teacherSubjects: true,
+        assessments: true,
       },
     });
   }
@@ -25,6 +26,7 @@ export class teacherService {
         department: true,
         photo: true,
         teacherSubjects: true,
+        assessments: true,
       },
     });
   }

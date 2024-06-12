@@ -11,6 +11,7 @@ import {
 import { CommentService } from './comment.service';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { UpdateCommentDTO } from './dto/update-comment.dto';
+import { Public } from 'src/auth/decorator/isPublic.decorator';
 
 @Controller('comment')
 export class CommentController {
@@ -21,11 +22,13 @@ export class CommentController {
     return this.commentService.create(comment);
   }
 
+  @Public()
   @Get()
   async findAll() {
     return this.commentService.findAll();
   }
 
+  @Public()
   @Get(':id')
   async findOne(@Param('id') id: number) {
     return this.commentService.findOne(Number(id));

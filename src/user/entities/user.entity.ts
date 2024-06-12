@@ -1,19 +1,19 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsOptional, IsString } from 'class-validator';
 
 export class UserEntity {
-    @IsString()
-    id: number;
+  @IsString()
+  id: number;
 
-    @IsString()
-    email: string;
+  @IsString()
+  email: string;
 
-    @IsString()
-    password: string;
+  @IsString()
+  password: string;
 
-    @IsString()
-    @IsOptional()    
-    name?: string;
+  @IsString()
+  @IsOptional()
+  name?: string;
 
-    createdAt?: Date;
-    updatedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

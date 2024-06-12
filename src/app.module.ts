@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/guards/auth-guard';
 
 @Module({
   imports: [
@@ -21,10 +23,17 @@ import { AppService } from './app.service';
     JwtModule,
     ConfigModule.forRoot({
       isGlobal: true,
-    })
+    }),
   ],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      //ativando o guardiao globalmente, p se aplicar a todas as rotas
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
