@@ -95,7 +95,7 @@ async function createTeacherSubjects(teacherId, subjectId) {
 }
 
 async function main() {
-  await createTeacher('Carla Castanho', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t1
+  await createTeacher('Carlos Louro', 'CIC', "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"); //t1
   await createUser('Adrielly', 'limaadrielly@example.com', '1234567', 'CIC', 'Ciência da Computação', 'https://rockntech.com.br/wp-content/uploads/2015/02/selfies-de-gatos_2.jpg');
   await createSubjects('APC'); //1
   await createSubjects('Cálculo I'); //2
@@ -144,7 +144,6 @@ async function main() {
   await createTeacherSubjects(4, 10);
   await createTeacherSubjects(11, 11);
   await createTeacherSubjects(9, 12);
-  await createTeacherSubjects(6, 13);
   await createTeacherSubjects(11, 14);
   await createTeacherSubjects(5, 15);
   await createTeacherSubjects(16, 16);
@@ -152,6 +151,7 @@ async function main() {
   await createTeacherSubjects(7, 18);
   await createTeacherSubjects(15, 19);
   await createTeacherSubjects(2, 20);
+  await createTeacherSubjects(14, 13);
 }
 
 main()
