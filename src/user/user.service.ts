@@ -83,28 +83,48 @@ export class UserService {
     if (!isValidId) {
       throw new NotFoundException('Usuário não encontrado');
     }
+    if (updateUserDto.password) {
+      const hashedPassword = await bcrypt.hash(updateUserDto.password, 10); //repetindo o processo de hashing pois o user pode trocar de senha
 
-    const hashedPassword = await bcrypt.hash(updateUserDto.password, 10); //repetindo o processo de hashing pois o user pode trocar de senha
-
-    return await this.prisma.user.update({
-      where: { id },
-      data: {
-        ...updateUserDto,
-        password: hashedPassword,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        course: true,
-        department: true,
-        photo: true,
-        assessments: true,
-        comments: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
+      return await this.prisma.user.update({
+        where: { id },
+        data: {
+          ...updateUserDto,
+          password: hashedPassword,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          course: true,
+          department: true,
+          photo: true,
+          assessments: true,
+          comments: true,
+          created_at: true,
+          updated_at: true,
+        },
+      });
+    } else {
+      return await this.prisma.user.update({
+        where: { id },
+        data: {
+          ...updateUserDto,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          course: true,
+          department: true,
+          photo: true,
+          assessments: true,
+          comments: true,
+          created_at: true,
+          updated_at: true,
+        },
+      });
+    }
   }
 
   async deleteUser(id: number) {

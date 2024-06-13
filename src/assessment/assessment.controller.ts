@@ -43,7 +43,7 @@ export class AssessmentController {
   @Public()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.assessmentService.findOne(+id);
+    return this.assessmentService.findOne(Number(id));
   }
 
   @Patch(':id')
@@ -52,13 +52,13 @@ export class AssessmentController {
     @Body(ValidationPipe) updateAssessmentDTO: UpdateAssessmentDTO,
     @CurrentUser() currentUser: UserPayload,
   ) {
-    const assessment = await this.assessmentService.findOne(id);
+    const assessment = await this.assessmentService.findOne(Number(id));
     if (assessment.userId !== currentUser.sub) {
       throw new UnauthorizedException(
         'Você só pode atualizar seus próprios posts',
       );
     }
-    return this.assessmentService.update(+id, updateAssessmentDTO);
+    return this.assessmentService.update(Number(id), updateAssessmentDTO);
   }
 
   @Delete(':id')
@@ -66,10 +66,10 @@ export class AssessmentController {
     @Param('id') id: number,
     @CurrentUser() currentUser: UserPayload,
   ) {
-    const assessment = await this.assessmentService.findOne(id);
+    const assessment = await this.assessmentService.findOne(Number(id));
     if (assessment.userId !== currentUser.sub) {
       throw new UnauthorizedException('Você só pode excluir seu próprio post');
     }
-    return this.assessmentService.remove(+id);
+    return this.assessmentService.remove(Number(id));
   }
 }

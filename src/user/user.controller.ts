@@ -40,21 +40,22 @@ export class UserController {
 
   @Patch(':id')
   updateUser(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body(ValidationPipe) updateData: UpdateUserDto,
     @CurrentUser() currentUser: UserPayload,
   ) {
-    if (id !== currentUser.sub) {
-      throw new UnauthorizedException(
-        'Você só pode atualizar seu próprio perfil',
-      );
+    if (parseInt(id) === currentUser.sub) {
+      return this.userService.updateUser(Number(id), updateData);
     }
-    return this.userService.updateUser(Number(id), updateData);
+    console.log(typeof id, typeof currentUser.sub);
+    throw new UnauthorizedException(
+      'Você só pode atualizar seu próprio perfil',
+    );
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number, @CurrentUser() currentUser: UserPayload) {
-    if (id !== currentUser.sub) {
+  deleteUser(@Param('id') id: string, @CurrentUser() currentUser: UserPayload) {
+    if (Number(id) !== currentUser.sub) {
       throw new UnauthorizedException(
         'Você só pode excluir seu próprio perfil',
       );
