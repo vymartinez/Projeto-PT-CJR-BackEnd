@@ -44,10 +44,9 @@ export class UserController {
     @Body(ValidationPipe) updateData: UpdateUserDto,
     @CurrentUser() currentUser: UserPayload,
   ) {
-    if (parseInt(id) === currentUser.sub) {
+    if (Number(id) === currentUser.sub) {
       return this.userService.updateUser(Number(id), updateData);
     }
-    console.log(typeof id, typeof currentUser.sub);
     throw new UnauthorizedException(
       'Você só pode atualizar seu próprio perfil',
     );
