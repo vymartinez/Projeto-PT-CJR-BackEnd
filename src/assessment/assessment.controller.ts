@@ -12,7 +12,7 @@ import {
 import { assessmentService } from './assessment.service';
 import { AssessmentDTO } from './dto/assessment.dto';
 import { UpdateAssessmentDTO } from './dto/update-assessment.dto';
-import { CurrentUser } from 'src/auth/decorator/CurrentUser.decorator';
+import { CurrentUser } from 'src/auth/decorator';
 import { UserPayload } from 'src/auth/types/UserPayload';
 import { Public } from 'src/auth/decorator/isPublic.decorator';
 
