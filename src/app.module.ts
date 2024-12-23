@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guards/auth-guard';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthGuard } from './auth/guards/auth-guard';
     SubjectModule,
     AuthModule,
     JwtModule,
+    PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
